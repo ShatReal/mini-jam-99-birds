@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 	if -$Player.position.y > max_height:
 		max_height = -$Player.position.y
 # warning-ignore:integer_division
-		$CanvasLayer/Label.text = str(coin_score + (max_height + START_OFFSET)/POINT_DIV)
+		$CanvasLayer/Label.text = str(round(coin_score + (max_height + START_OFFSET)/POINT_DIV))
 
 
 func _on_Lava_body_entered(body: Node) -> void:
@@ -52,7 +52,7 @@ func _on_Lava_body_entered(body: Node) -> void:
 		
 
 func game_over() ->void:
-	$CanvasLayer/GameOver/Score.text = "Score: %s" % [coin_score + (max_height + START_OFFSET)/POINT_DIV]
+	$CanvasLayer/GameOver/Score.text = "Score: %s" % [round(coin_score + (max_height + START_OFFSET)/POINT_DIV)]
 	$CanvasLayer/GameOver.show()
 	$CanvasLayer/GameOver/Restart.grab_focus()
 	get_tree().paused = true
@@ -86,7 +86,7 @@ func make_platform() -> void:
 func on_coin_body_entered(body: Node, coin: Area2D) -> void:
 	if body.name == "Player":
 		coin_score += COIN_SCORE
-		$CanvasLayer/Label.text = str(coin_score + (max_height + START_OFFSET)/POINT_DIV)
+		$CanvasLayer/Label.text = str(round(coin_score + (max_height + START_OFFSET)/POINT_DIV))
 		coin.queue_free()
 		$Coin.play()
 
